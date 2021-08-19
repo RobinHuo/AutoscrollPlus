@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="options.css" />
+    <script src="options.js" defer></script>
+  </head>
+  <body>
+    <header>Autoscroll Plus Options</header>
+    <section class="options">
+      <label for="speed-increment">
+        Default speed increment
+      </label>
+      <input type="number" id="speed-increment" min="0" step="any">
+      <label for="auto-stop">
+        Automatically stop scrolling at page end
+      </label>
+      <input type="checkbox" id="auto-stop">
+    </section>
+    <section class="buttons">
+      <button type="button" id="save">Save</button>
+      <button type="button" id="restore">Restore Defaults</button>
+      <button type="button" id="delete">Delete Saved Profiles</button>
+    </section>
+  </body>
+</html>

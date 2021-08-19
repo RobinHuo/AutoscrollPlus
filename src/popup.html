@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+  <script src="popup.js" defer></script>
+</head>
+
+<body>
+  <div class="button-grid">
+    <input type="number" step="any" class="speed-field centre" id="scroll-speed" title="Set speed in px/s">
+    <svg class="scroll-button up" id="scroll-up" title="Scroll up"
+      version="1.1" viewBox="0 16 64 32" xmlns="http://www.w3.org/2000/svg">
+      <path d="m32 16 32 32-64-0z"/>
+    </svg>
+    <svg class="scroll-button right" id="scroll-right" title="Scroll right"
+      version="1.1" viewBox="16 0 32 64" xmlns="http://www.w3.org/2000/svg">
+      <path d="m48 32-32 32 0 -64z"/>
+    </svg>
+    <svg class="scroll-button down" id="scroll-down" title="Scroll down"
+      version="1.1" viewBox="0 16 64 32" xmlns="http://www.w3.org/2000/svg">
+      <path d="m32 48 32-32-64 0z"/>
+    </svg>
+    <svg class="scroll-button left" id="scroll-left" title="Scroll left"
+      version="1.1" viewBox="16 0 32 64" xmlns="http://www.w3.org/2000/svg">
+      <path d="m16 32 32 32 0 -64z"/>
+    </svg>
+  </div>
+  <div class="button-container">
+    <svg class="button" id="stop-button" title="Stop scrolling"
+      version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <rect width="64" height="64"/>
+    </svg>
+    <svg class="button" id="resume-button" title="Resume scrolling"
+      version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <path d="m0 0 64 32-64 32z"/>
+    </svg>
+    <svg class="button" id="pause-button" title="Pause scrolling"
+      version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <rect id="rect1970" width="24" height="64" stroke-width="2"/>
+      <use transform="translate(40)" width="100%" height="100%" xlink:href="#rect1970"/>
+    </svg>
+  </div>
+  <div class="message" id="status-message">ERROR: Scroll controller not found</div>
+  <div class="tabs-grid">
+    <input type="radio" id="periodic-tab" name="tab">
+    <label class="tab tab-1" for="periodic-tab">PERIODIC</label>
+    <div class="column-container content">
+      <div class="periodic-grid">
+        <label for="periodic-x">X-Scroll:</label>
+        <input type="number" min="0" name="x-increment" placeholder="0" id="periodic-x">
+        <label for="periodic-x">px</label>
+        <select id="periodic-xdir">
+          <option value="-1">left</option>
+          <option value="1" selected>right</option>
+        </select>
+        <label for="periodic-y">Y-Scroll:</label>
+        <input type="number" min="0" name="y-increment" placeholder="0" id="periodic-y">
+        <label for="periodic-y">px</label>
+        <select id="periodic-ydir">
+          <option value="-1">up</option>
+          <option value="1" selected>down</option>
+        </select>
+      </div>
+      <div class="autosized-row">
+        <label for="periodic-int">Time Interval:</label>
+        <input type="number" min="0" step="any" name="interval" id="periodic-int">
+        <select id="periodic-unit">
+          <option value="1">ms</option>
+          <option value="1000" selected>s</option>
+        </select>
+      </div>
+      <button type="button" id="periodic-submit">GO</button>
+    </div>
+    <input type="radio" id="waypoint-tab" name="tab">
+    <label class="tab tab-2" for="waypoint-tab">WAYPOINT</label>
+    <div class="column-container content">
+      <div class="button-container">  
+        <svg class="button" id="waypoint-click"
+          version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" stroke="#000" stroke-width="8">
+            <path d="m32 4v40" stroke-linecap="round"/>
+            <path d="m20 32 12 12 12-12" stroke-linecap="round"/>
+            <path d="m46.467 45.151a28 8 0 0 1 13.533 6.8495 28 8 0 0 1-28 8 28 8 0 0 1-28-8 28 8 0 0 1 13.533-6.8494" stroke-linejoin="round"/>
+          </g>
+          <ellipse cx="32" cy="52" rx="4" ry="1" stroke="#000" stroke-width="2"/>
+        </svg>
+        <svg class="button" id="waypoint-top"
+          version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" stroke="#000" stroke-linecap="round" stroke-width="8">
+            <path d="m4 4h56"/>
+            <path d="m32 12v48"/>
+            <path d="m16 24 16-12 16 12"/>
+          </g>
+        </svg>
+        <svg class="button" id="waypoint-bottom"
+          version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" stroke="#000" stroke-linecap="round" stroke-width="8">
+            <path d="m4 60h56"/>
+            <path d="m32 52v-48"/>
+            <path d="m16 40 16 12 16-12"/>
+          </g>
+        </svg>
+      </div>
+      <div class="message" id="waypoint-message">Waypoint: None</div>
+      <div class="autosized-row">
+        <label for="waypoint-time">Seconds to scroll:</label>
+        <input type="number" min="0" name="scroll-seconds" id="waypoint-time" title="Scroll duration in seconds">
+      </div>
+      <button type="button" id="waypoint-submit">GO</button>
+    </div>
+    <input type="radio" id="save-tab" name="tab" checked>
+    <label class="tab tab-3" for="save-tab">SAVE/LOAD</label>
+    <div class="column-container content">
+      <div class="button-container">
+        <svg class="button" id="save-button"
+          version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" stroke="#000" stroke-linecap="round" stroke-width="8">
+            <path d="m4 40v20h56v-20" stroke-linejoin="round"/>
+            <path d="m32 4v41"/>
+            <path d="m20 37 12 8 12-8"/>
+          </g>
+        </svg>
+        <svg class="button" id="load-button"
+          version="1.1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" stroke="#000" stroke-linecap="round">
+            <path d="m4 40v20h56v-20" stroke-linejoin="round" stroke-width="8"/>
+            <path d="m32 5v39" stroke-width="8"/>
+            <path d="m20 13 12-8 12 8" stroke-width="8"/>
+          </g>
+        </svg>
+      </div>
+      <div class="message" id="saved-message">ERROR: Scroll controller not found</div>
+    </div>
+  </div>
+</body>
+
+</html>

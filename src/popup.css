@@ -1,0 +1,299 @@
+@font-face {
+    font-family: 'Merriweather Sans';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Merriweather Sans'), url('fonts/MerriweatherSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Merriweather Sans';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Merriweather Sans'), url('fonts/MerriweatherSans-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    src: local('Open Sans'), url('fonts/OpenSans-SemiBold.ttf') format('truetype');
+}
+
+
+:root {
+    --grid-size: 100px;
+    --active-color: rgb(0 200 0);
+}
+
+html {
+    box-sizing: border-box;
+
+    font-family: 'Merriweather Sans', Arial, Helvetica, sans-serif;
+    font-size: 10px;
+}
+
+*, ::before, ::after {
+    box-sizing: inherit;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    height: fit-content;
+    width: min-content;
+
+    font-family: inherit;
+    font-size: 1.2rem;
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: 100%;
+}
+
+input[type="number"] {
+    font-family: 'Open Sans';
+    font-weight: 600;
+}
+
+/* BUTTON STYLING */
+
+.button, .scroll-button, .tab {
+    cursor: pointer;
+}
+
+.button {
+    background-color: hsl(0deg 0% 95%);
+    border-radius: 5px;
+    border: 3px solid #000;
+    padding: 5px;
+    fill: #000;
+}
+
+.button:hover {
+    background-color: hsl(0deg 0% 85%);
+}
+
+.scroll-button:hover {
+    fill: hsl(0deg 0% 30%);
+}
+
+.button:active, .scroll-button:active {
+    border-color: var(--active-color);
+    stroke: var(--active-color);
+    fill: var(--active-color);
+}
+
+.button:active *, .scroll-button:active {
+    /* fill: currentColor; */
+    stroke: inherit;
+}
+
+/* MESSAGES */
+
+.centred {
+    text-align: center;
+}
+
+.message {
+    width: 100%;
+    border: 1px solid black;
+    padding: 3px;
+    background-color: #fff;
+
+    /* text-align: center; */
+}
+
+body > .message {
+    border: 2px solid black;
+}
+
+/* SPEED CONTROL BUTTONS */
+
+.scroll-button.up, .scroll-button.down {
+    width: var(--grid-size);
+}
+
+.scroll-button.left, .scroll-button.right {
+    height: var(--grid-size);
+}
+
+.button-grid {
+    display: grid;
+    grid-template-areas:
+        " .     up     .  "
+        "left centre right"
+        " .    down    .  ";
+    grid-auto-rows: max-content;
+    grid-auto-columns: max-content;
+    gap: 10px;
+    align-items: center;
+    justify-items: center;
+
+    border: 3px solid black;
+    border-radius: 50%;
+    padding: 5px;
+    overflow: hidden;
+
+    font-size: calc(0.3 * var(--grid-size));
+}
+
+.button-grid .up {
+    grid-area: up;
+    align-self: end;
+}
+
+.button-grid .right {
+    grid-area: right;
+    justify-self: start;
+}
+
+.button-grid .down {
+    grid-area: down;
+    align-self: start;
+}
+
+.button-grid .left {
+    grid-area: left;
+    justify-self: end;
+}
+
+.button-grid .centre {
+    grid-area: centre;
+    align-self: stretch;
+    width: var(--grid-size);
+    height: var(--grid-size);
+}
+
+.speed-field {
+    text-align: center;
+    border: inherit;
+    border-radius: 50%;
+    border-width: 2px;
+    /* -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield; */
+
+    font-size: inherit;
+}
+
+.speed-field::-webkit-inner-spin-button, 
+.speed-field::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+}
+
+.speed-field:hover {
+    border-color: var(--active-color);
+}
+
+/* BUTTON ROWS */
+
+.button-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.button-container .button {
+    width: 48px;
+}
+
+/* TABS STYLING */
+
+input[type="radio"][name="tab"] {
+    display: none;
+}
+
+input[type="radio"][name="tab"]:checked + .tab {
+    font-weight: bold;
+    background-color: unset;
+    cursor: default;
+}
+
+input[type="radio"][name="tab"]:not(:checked) + * + .content {
+    display: none;
+}
+
+.tab {
+    display: inline-block;
+    width: 100%;
+    border-bottom: 1px solid black;
+    background-color: #ddd;
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 3rem;
+
+    font-family: 'Merriweather Sans';
+    font-weight: bold;
+}
+
+.tab:hover {
+    background-color: #aaa;
+}
+
+.tab ~ .tab {
+    border-left: 1px solid black;
+}
+
+.tabs-grid {
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: inherit;
+    overflow: auto;
+
+    display: grid;
+    grid-template-areas:
+        "tab-1 tab-2 tab-3"
+        "content content content";
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.tab-1 {grid-area: tab-1;}
+.tab-2 {grid-area: tab-2;}
+.tab-3 {grid-area: tab-3;}
+
+.content {
+    grid-area: content;
+
+    padding: 10px;
+}
+
+/* PERIODIC CONTROLS */
+
+.periodic-grid {
+    display: grid;
+    grid-template-columns: max-content 1fr max-content max-content;
+    gap: 5px;
+    align-items: baseline;
+}
+
+.periodic-grid input {
+    width: 100%;
+}
+
+/* PERIODIC/WAYPOINT CONTROLS */
+
+.column-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.autosized-row {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.autosized-row input {
+    width: 100%;
+    flex: 1;
+}

@@ -1,0 +1,24 @@
+{
+    "name": "Autoscroll Plus",
+    "description": "Customizable autoscroll with 3 modes and per-URL saving/loading.",
+    "version": "0.0.1",
+    "manifest_version": 3,
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "storage"
+    ],
+    "action": {
+        "default_popup": "src/popup.html"
+    },
+    "icons": {
+        "16": "icons/logo_16.png",
+        "32": "icons/logo_32.png",
+        "48": "icons/logo_48.png",
+        "128": "icons/logo_128.png"
+    },
+    "options_ui": {
+        "page": "src/options.html",
+        "open_in_tab": false
+    }
+}
